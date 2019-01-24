@@ -1,10 +1,9 @@
 'use strict'
-/* global shoppingList, store */
+/* global shoppingList, store, Item */
 
 
 
 $(document).ready(function() {
   shoppingList.bindEventListeners();
   shoppingList.render();
-  console.log(store, foo);
 });
