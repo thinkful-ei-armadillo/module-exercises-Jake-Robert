@@ -1,4 +1,5 @@
 'use strict';
+/*global cuid, Item */
 
 const store = (function () {
   const items = [
@@ -11,9 +12,49 @@ const store = (function () {
   const searchTerm = '';
 
   return {
-    items: items,
-    hideCheckedItems: hideCheckedItems,
-    searchTerm: searchTerm
+    items,
+    hideCheckedItems,
+    searchTerm,
+    findById,
+    addItem,
+    findAndToggleChecked,
+    findAndUpdateName,
+    findAndDelete
   };
 
 }() );
+
+function findById(id) {
+  return store.items.find((item) => item.id === id);
+};
+
+function addItem(name) {
+  try {
+    Item.validateName(name);
+    this.items.push(Item.create(name));
+  }
+  catch(error) {
+    console.log(`cannot add item ${error.message}`)
+  }
+}
+
+function findAndToggleChecked(id) {
+  this.findById(id).checked = !this.findById(id).checked;
+}
+
+function findAndUpdateName(id, newName) {
+  try {
+    Item.validateName(name);
+    this.findById(id).name = newName;
+  }
+  catch(error) {
+    console.log(`cannot update name ${error.message}`)
+  }
+}
+
+function findAndDelete(id) {
+  const toBeRemoved = this.findById(id);
+  this.items.filter(function(item){
+    return toBeRemoved;
+  })
+}
